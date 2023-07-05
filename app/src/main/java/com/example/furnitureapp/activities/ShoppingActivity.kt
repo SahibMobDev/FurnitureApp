@@ -1,11 +1,12 @@
-package com.example.furnitureapp
+package com.example.furnitureapp.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.furnitureapp.R
 
-class MainActivity : AppCompatActivity() {
+class ShoppingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_shopping)
     }
 }
