@@ -13,10 +13,14 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.furnitureapp.R
 import com.example.furnitureapp.data.User
 import com.example.furnitureapp.databinding.FragmentRegisterBinding
+import com.example.furnitureapp.util.RegisterValidation
 import com.example.furnitureapp.util.Resource
 import com.example.furnitureapp.viewmodel.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 private const val TAG = "RegisterFragment"
 @AndroidEntryPoint
@@ -68,6 +72,30 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                             binding.buttonRegisterRegister.revertAnimation()
                         }
                         else -> Unit
+                    }
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.validation.collect {validation ->
+                    if (validation.email is RegisterValidation.Failed) {
+                        withContext(Dispatchers.Main) {
+                            binding.edEmailRegister.apply {
+                                requestFocus()
+                                error = validation.email.message
+                            }
+                        }
+                    }
+
+                    if (validation.password is RegisterValidation.Failed) {
+                        withContext(Dispatchers.Main) {
+                            binding.edPasswordRegister.apply {
+                                requestFocus()
+                                error = validation.password.message
+                            }
+                        }
                     }
                 }
             }
