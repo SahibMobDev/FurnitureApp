@@ -9,3 +9,5 @@ data class RegisterFieldState(
     val email: RegisterValidation,
     val password: RegisterValidation
 )
+
+

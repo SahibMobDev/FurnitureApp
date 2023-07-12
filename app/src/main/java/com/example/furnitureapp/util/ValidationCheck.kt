@@ -21,3 +21,4 @@ fun validatePassword(password: String): RegisterValidation {
 
     return RegisterValidation.Success
 }
+
