@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.furnitureapp.R
 import com.example.furnitureapp.activities.ShoppingActivity
 import com.example.furnitureapp.databinding.FragmentLoginBinding
+import com.example.furnitureapp.dialog.setupBottomSheetDialog
 import com.example.furnitureapp.util.Resource
 import com.example.furnitureapp.viewmodel.LoginViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -46,6 +47,30 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 val email = edEmailLogin.text.toString().trim()
                 val password = edPasswordLogin.text.toString()
                 viewModel.login(email, password)
+            }
+        }
+
+        binding.tvForgotPasswordLogin.setOnClickListener {
+            setupBottomSheetDialog {email ->
+                viewModel.resetPassword(email)
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.resetPassword.collect {
+                    when(it) {
+                        is Resource.Loading -> {
+                        }
+                        is Resource.Success -> {
+                            Snackbar.make(requireView(), getString(R.string.reset_link_was_send_to_your_email), Snackbar.LENGTH_LONG).show()
+                        }
+                        is Resource.Error -> {
+                            Snackbar.make(requireView(), "Error: ${it.message}", Snackbar.LENGTH_LONG).show()
+                        }
+                        else -> Unit
+                    }
+                }
             }
         }
 

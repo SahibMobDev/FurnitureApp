@@ -2,4 +2,9 @@
     <string name="app_name">FurnitureApp</string>
     <string name="rightAddress">The Right Address\nFor Shopping\nAnyday</string>
     <string name="quality">it is now very easy to reach the\nbest quality among all the\nproducts on the internet!</string>
+    <string name="reset_email_text">We will send you the password reset link to your email</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="send_button">Send</string>
+    <string name="reset_link_was_send_to_your_email">Reset link was send to your email</string>
 </resources>
