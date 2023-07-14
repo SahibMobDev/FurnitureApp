@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_introduction">
         <action
             android:id="@+id/action_introductionFragment_to_accountOptionsFragment"
-            app:destination="@id/accountOptionsFragment" />
+            app:destination="@id/accountOptionsFragment"
+            app:enterAnim="@anim/from_bottom" />
     </fragment>
     <fragment
         android:id="@+id/accountOptionsFragment"
@@ -21,10 +22,18 @@
         tools:layout="@layout/fragment_account_options">
         <action
             android:id="@+id/action_accountOptionsFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_accountOptionsFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right"/>
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -34,6 +43,9 @@
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment"
+            app:enterAnim="@anim/from_bottom"
+            app:exitAnim="@anim/to_bottom"
+            app:popExitAnim="@anim/to_bottom"
             app:popUpTo="@id/accountOptionsFragment" />
     </fragment>
     <fragment
@@ -44,6 +56,9 @@
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment"
+            app:enterAnim="@anim/from_bottom"
+            app:exitAnim="@anim/to_bottom"
+            app:popExitAnim="@anim/to_bottom"
             app:popUpTo="@id/accountOptionsFragment" />
     </fragment>
 </navigation>
