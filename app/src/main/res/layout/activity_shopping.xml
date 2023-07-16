@@ -6,15 +6,31 @@
     android:layout_height="match_parent"
     tools:context=".activities.ShoppingActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Shopping activity"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <fragment
+        android:id="@+id/shoppingHostFragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/shopping_graph"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:textSize="40sp"
-        android:textColor="@color/black"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_navigation_menu"
+        app:labelVisibilityMode="unlabeled"
+        android:background="@drawable/bottom_navigation_background"
+        android:elevation="0dp"
+        app:itemPaddingTop="10dp"
+        app:itemPaddingBottom="10dp"
+        app:itemRippleColor="@color/g_white"
+        app:itemIconTint="@drawable/bottom_nav_item_background"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

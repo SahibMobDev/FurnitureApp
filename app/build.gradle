@@ -42,6 +42,8 @@ android {
 
 dependencies {
 
+    def nav_version = "2.6.0"
+
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.5.0'
@@ -80,4 +82,9 @@ dependencies {
 
     //Firebase
     implementation 'com.google.firebase:firebase-auth:21.1.0'
+
+
+    //Navigation component
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 }
