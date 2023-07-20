@@ -12,9 +12,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.furnitureapp.R
+import com.example.furnitureapp.adapters.BestDealsAdapter
+import com.example.furnitureapp.adapters.BestProductAdapter
 import com.example.furnitureapp.adapters.SpecialProductsAdapter
 import com.example.furnitureapp.databinding.FragmentMainCategoryBinding
 import com.example.furnitureapp.util.Resource
@@ -28,6 +31,8 @@ private const val TAG = "MainCategoryFragment"
 class MainCategoryFragment : Fragment(R.layout.fragment_main_category) {
     lateinit var binding: FragmentMainCategoryBinding
     lateinit var specialProductAdapter: SpecialProductsAdapter
+    lateinit var bestDealsAdapter: BestDealsAdapter
+    lateinit var bestProductAdapter: BestProductAdapter
     private val viewModel by viewModels<MainCategoryViewModel>()
 
     override fun onCreateView(
@@ -43,6 +48,8 @@ class MainCategoryFragment : Fragment(R.layout.fragment_main_category) {
         super.onViewCreated(view, savedInstanceState)
 
         setupSpecialProductsRv()
+        setupBestDealsRv()
+        setupBestProductsRv()
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.specialProducts.collect {
@@ -63,6 +70,60 @@ class MainCategoryFragment : Fragment(R.layout.fragment_main_category) {
                     }
                 }
             }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.bestDealsProducts.collect {
+                    when(it) {
+                        is Resource.Loading -> showLoading()
+                        is Resource.Success -> {
+                            bestDealsAdapter.differ.submitList(it.data)
+                        }
+                        is Resource.Error -> {
+                            hideLoading()
+                            Log.e(TAG, it.message.toString())
+                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                        }
+                        else -> Unit
+                    }
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.bestProducts.collect {
+                    when(it) {
+                        is Resource.Loading -> showLoading()
+                        is Resource.Success -> {
+                            bestProductAdapter.differ.submitList(it.data)
+                        }
+                        is Resource.Error -> {
+                            hideLoading()
+                            Log.e(TAG, it.message.toString())
+                            Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                        }
+                        else -> Unit
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setupBestProductsRv() {
+        bestProductAdapter = BestProductAdapter()
+        binding.rvBestProducts.apply {
+            layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
+            adapter = bestProductAdapter
+        }
+    }
+
+    private fun setupBestDealsRv() {
+        bestDealsAdapter = BestDealsAdapter()
+        binding.rvBestDealsProducts.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = bestDealsAdapter
         }
     }
 
