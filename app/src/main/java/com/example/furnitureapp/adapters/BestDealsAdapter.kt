@@ -1,5 +1,6 @@
 package com.example.furnitureapp.adapters
 
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -18,7 +19,8 @@ class BestDealsAdapter : RecyclerView.Adapter<BestDealsAdapter.BestDealsViewHold
                 product.offerPercentage?.let {
                     val remainingProduct = 1f - it
                     val priceAfterOffer = remainingProduct * product.price
-                    tvNewPrice.text = "$ ${String.format("%2f", priceAfterOffer)}"
+                    tvNewPrice.text = "$ ${String.format("%.2f", priceAfterOffer)}"
+                    tvOldPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                 }
                 tvOldPrice.text = "$ ${product.price}"
                 tvDealProductName.text = product.name
