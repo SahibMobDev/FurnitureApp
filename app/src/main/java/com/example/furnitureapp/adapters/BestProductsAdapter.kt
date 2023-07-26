@@ -11,12 +11,11 @@ import com.bumptech.glide.Glide
 import com.example.furnitureapp.data.Product
 import com.example.furnitureapp.databinding.ProductRvItemBinding
 
-class BestProductAdapter : RecyclerView.Adapter<BestProductAdapter.BestProductsViewHolder>() {
+class BestProductsAdapter : RecyclerView.Adapter<BestProductsAdapter.BestProductsViewHolder>() {
 
     inner class BestProductsViewHolder(private val binding: ProductRvItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(product: Product) {
             binding.apply {
-                Glide.with(itemView).load(product.images[0]).into(imgProduct)
                 product.offerPercentage?.let {
                     val remainingPricePercentage = 1f - it
                     val priceAfterOffer = remainingPricePercentage * product.price
@@ -25,6 +24,8 @@ class BestProductAdapter : RecyclerView.Adapter<BestProductAdapter.BestProductsV
                 }
                 if (product.offerPercentage == null)
                     tvNewPrice.visibility = View.INVISIBLE
+
+                Glide.with(itemView).load(product.images[0]).into(imgProduct)
                 tvPrice.text = product.price.toString()
                 tvName.text = product.name
             }
@@ -57,7 +58,11 @@ class BestProductAdapter : RecyclerView.Adapter<BestProductAdapter.BestProductsV
     override fun onBindViewHolder(holder: BestProductsViewHolder, position: Int) {
         val product = differ.currentList[position]
         holder.bind(product)
+
+        holder.itemView.setOnClickListener {
+            onClick?.invoke(product)
+        }
     }
 
-
+    var onClick: ((Product) -> Unit)? = null
 }

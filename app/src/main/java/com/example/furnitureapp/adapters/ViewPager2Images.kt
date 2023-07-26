@@ -6,15 +6,14 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.bumptech.glide.Glide
 import com.example.furnitureapp.databinding.ViewpagerImageItemBinding
 
 class ViewPager2Images : RecyclerView.Adapter<ViewPager2Images.ViewPager2ImagesViewHolder>() {
 
     inner class ViewPager2ImagesViewHolder(
-        private val binding: ViewpagerImageItemBinding) : ViewHolder(binding.root) {
-            fun bind(imagePath: String) {
+        val binding: ViewpagerImageItemBinding) : ViewHolder(binding.root) {
 
-            }
         }
 
     private val diffCallback = object : DiffUtil.ItemCallback<String>() {
@@ -41,8 +40,7 @@ class ViewPager2Images : RecyclerView.Adapter<ViewPager2Images.ViewPager2ImagesV
     }
 
     override fun onBindViewHolder(holder: ViewPager2ImagesViewHolder, position: Int) {
-        val image = differ.currentList[position]
-        holder.bind(image)
+        Glide.with(holder.itemView).load(differ.currentList[position]).into(holder.binding.imageProductDetails)
     }
 
 
