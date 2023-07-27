@@ -1,6 +1,5 @@
 package com.example.furnitureapp.adapters
 
-import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,9 +60,9 @@ class SizesAdapter: RecyclerView.Adapter<SizesAdapter.SizesViewHolder>() {
                 notifyItemChanged(selectedPosition)
             selectedPosition = holder.adapterPosition
             notifyItemChanged(selectedPosition)
-            onClickItem?.invoke(size)
+            onItemClick?.invoke(size)
         }
     }
 
-    var onClickItem: ((String) -> Unit)? = null
+    var onItemClick: ((String) -> Unit)? = null
 }

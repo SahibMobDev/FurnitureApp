@@ -64,9 +64,9 @@ class ColorsAdapter : RecyclerView.Adapter<ColorsAdapter.ColorsViewHolder>() {
                 notifyItemChanged(selectedPosition)
             selectedPosition = holder.adapterPosition
             notifyItemChanged(selectedPosition)
-            onClickItem?.invoke(color)
+            onItemClick?.invoke(color)
         }
     }
 
-    var onClickItem: ((Int) -> Unit)? = null
+    var onItemClick: ((Int) -> Unit)? = null
 }

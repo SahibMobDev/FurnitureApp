@@ -2,6 +2,7 @@ package com.example.furnitureapp.di
 
 import android.app.Application
 import android.content.Context.MODE_PRIVATE
+import com.example.furnitureapp.firebase.FirebaseCommon
 import com.example.furnitureapp.util.Constants.INTRODUCTION_SP
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -28,4 +29,11 @@ object AppModule {
 
     @Provides
     fun provideIntroductionSP(application: Application) = application.getSharedPreferences(INTRODUCTION_SP, MODE_PRIVATE)
+
+    @Provides
+    @Singleton
+    fun providesFirebaseCommon(
+        firebaseAuth: FirebaseAuth,
+        firestore: FirebaseFirestore
+    ) = FirebaseCommon(firestore, firebaseAuth)
 }
