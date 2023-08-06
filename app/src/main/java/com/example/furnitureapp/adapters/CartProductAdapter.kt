@@ -67,7 +67,7 @@ class CartProductAdapter  : RecyclerView.Adapter<CartProductAdapter.CartProducts
             onPlusClick?.invoke(cartProduct)
         }
 
-        holder.binding.imagePlus.setOnClickListener {
+        holder.binding.imageMinus.setOnClickListener {
             onMinusClick?.invoke(cartProduct)
         }
     }
