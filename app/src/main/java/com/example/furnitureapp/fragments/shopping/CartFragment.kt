@@ -17,6 +17,7 @@ import com.example.furnitureapp.R
 import com.example.furnitureapp.adapters.CartProductAdapter
 import com.example.furnitureapp.databinding.FragmentCartBinding
 import com.example.furnitureapp.firebase.FirebaseCommon
+import com.example.furnitureapp.fragments.loginRegister.RegisterFragmentDirections
 import com.example.furnitureapp.util.Resource
 import com.example.furnitureapp.util.VerticalItemDecoration
 import com.example.furnitureapp.viewmodel.CartViewModel
@@ -42,11 +43,13 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
 
         setupCartRv()
 
+        var totalPrice = 0f
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.productPrice.collectLatest {price ->
                     price?.let {
-                        binding.tvTotalPrice.text = "$ $price"
+                        totalPrice = it
+                        binding.tvTotalPrice.text = "$ ${String.format("%.2f", it)}"
                     }
                 }
             }
@@ -63,6 +66,11 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
 
         cartAdapter.onMinusClick = {
             viewModel.changeQuantity(it, FirebaseCommon.QuantityChanging.DECREASE)
+        }
+
+        binding.buttonCheckout.setOnClickListener {
+            val action = CartFragmentDirections.actionCartFragmentToBillingFragment(totalPrice, cartAdapter.differ.currentList.toTypedArray())
+            findNavController().navigate(action)
         }
 
         viewLifecycleOwner.lifecycleScope.launch {

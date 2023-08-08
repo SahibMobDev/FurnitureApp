@@ -28,33 +28,6 @@ class AddressFragment: Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.addNewAddress.collectLatest {
-                    when(it) {
-                        is Resource.Loading -> {
-                            binding.progressbarAddress.visibility = View.VISIBLE
-                        }
-                        is Resource.Success -> {
-                            binding.progressbarAddress.visibility = View.INVISIBLE
-                            findNavController().navigateUp()
-                        }
-                        is Resource.Error -> {
-                            Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_LONG).show()
-                        }
-                        else -> Unit
-                    }
-                }
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.error.collectLatest {
-                    Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
-                }
-            }
-        }
     }
 
     override fun onCreateView(
@@ -80,6 +53,35 @@ class AddressFragment: Fragment() {
                 val address = Address(addressTitle,fullName,street,phone,city, state)
 
                 viewModel.addAddress(address)
+            }
+        }
+
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.addNewAddress.collectLatest {
+                    when(it) {
+                        is Resource.Loading -> {
+                            binding.progressbarAddress.visibility = View.VISIBLE
+                        }
+                        is Resource.Success -> {
+                            binding.progressbarAddress.visibility = View.INVISIBLE
+                            findNavController().navigateUp()
+                        }
+                        is Resource.Error -> {
+                            Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_LONG).show()
+                        }
+                        else -> Unit
+                    }
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.error.collectLatest {
+                    Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+                }
             }
         }
     }
