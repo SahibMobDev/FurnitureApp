@@ -3,6 +3,7 @@ package com.example.furnitureapp.adapters
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView.Adapter
@@ -19,9 +20,9 @@ class AddressAdapter : Adapter<AddressAdapter.AddressViewHolder>() {
             binding.apply {
                 buttonAddress.text = address.addressTitle
                 if (isSelected) {
-                    buttonAddress.background = ColorDrawable(itemView.context.resources.getColor(R.color.g_blue))
+                    buttonAddress.background = ColorDrawable(ContextCompat.getColor(itemView.context, R.color.g_blue))
                 } else {
-                    buttonAddress.background = ColorDrawable(itemView.context.resources.getColor(R.color.g_white))
+                    buttonAddress.background = ColorDrawable(ContextCompat.getColor(itemView.context, R.color.g_white))
                 }
             }
         }
@@ -59,10 +60,10 @@ class AddressAdapter : Adapter<AddressAdapter.AddressViewHolder>() {
         holder.binding.buttonAddress.setOnClickListener {
             if (selectedAddress >= 0) {
                 notifyItemChanged(selectedAddress)
+            }
                 selectedAddress = holder.adapterPosition
                 notifyItemChanged(selectedAddress)
                 onClick?.invoke(address)
-            }
         }
     }
 
@@ -72,5 +73,5 @@ class AddressAdapter : Adapter<AddressAdapter.AddressViewHolder>() {
         }
     }
 
-    val onClick: ((Address) -> Unit)? = null
+    var onClick: ((Address) -> Unit)? = null
 }

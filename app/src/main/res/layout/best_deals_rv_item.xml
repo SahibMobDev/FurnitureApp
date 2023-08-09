@@ -67,7 +67,7 @@
             android:fontFamily="@font/poppins_light"
             android:text="See product"
             android:textColor="@color/white"
-            android:textSize="10dp"
+            android:textSize="10sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/tv_deal_product_name"
             app:layout_constraintTop_toTopOf="@id/tv_deal_product_name"

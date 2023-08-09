@@ -123,7 +123,7 @@
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/address_rv_item"/>
+                tools:listitem="@layout/address_rv_item" />
 
             <ProgressBar
                 android:id="@+id/progressbarAddress"
