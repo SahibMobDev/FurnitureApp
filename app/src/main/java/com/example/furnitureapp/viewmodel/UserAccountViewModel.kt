@@ -63,7 +63,7 @@ class UserAccountViewModel @Inject constructor(
     }
 
     fun updateUser(user: User, imageUri: Uri?) {
-        val areInputsValid = validateEmail(user.email) is RegisterValidation
+        val areInputsValid = validateEmail(user.email) is RegisterValidation.Success
                 && user.firstName.trim().isNotEmpty()
                 && user.lastName.trim().isNotEmpty()
 

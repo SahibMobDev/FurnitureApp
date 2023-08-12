@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/shopping_graph"
-    app:startDestination="@id/userAccountFragment">
+    app:startDestination="@id/allOrdersFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -76,5 +76,10 @@
     <fragment
         android:id="@+id/userAccountFragment"
         android:name="com.example.furnitureapp.fragments.settings.UserAccountFragment"
-        android:label="UserAccountFragment" />
+        android:label="UserAccountFragment"
+        tools:layout="@layout/fragment_user_account"/>
+    <fragment
+        android:id="@+id/allOrdersFragment"
+        android:name="com.example.furnitureapp.fragments.settings.AllOrdersFragment"
+        android:label="AllOrdersFragment" />
 </navigation>
