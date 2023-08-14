@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.furnitureapp.adapters.AllOrdersAdapter
 import com.example.furnitureapp.databinding.FragmentOrdersBinding
@@ -65,6 +66,10 @@ class AllOrdersFragment : Fragment() {
                     }
                 }
             }
+        }
+        ordersAdapter.onClick = {
+            val action = AllOrdersFragmentDirections.actionAllOrdersFragmentToOrderDetailFragment(it)
+            findNavController().navigate(action)
         }
     }
 

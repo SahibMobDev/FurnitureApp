@@ -3,6 +3,8 @@ package com.example.furnitureapp.adapters
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView.Adapter
@@ -12,9 +14,10 @@ import com.example.furnitureapp.data.order.Order
 import com.example.furnitureapp.data.order.OrderStatus
 import com.example.furnitureapp.data.order.getOrderStatus
 import com.example.furnitureapp.databinding.OrderItemBinding
+import com.example.furnitureapp.fragments.settings.AllOrdersFragmentDirections
 
 class AllOrdersAdapter : Adapter<AllOrdersAdapter.OrdersViewHolder>() {
-
+private val navController by lazy { Navigation }
 
    inner class OrdersViewHolder(private val binding: OrderItemBinding) : ViewHolder(binding.root) {
        fun bind(order: Order) {
@@ -74,6 +77,9 @@ class AllOrdersAdapter : Adapter<AllOrdersAdapter.OrdersViewHolder>() {
     override fun onBindViewHolder(holder: OrdersViewHolder, position: Int) {
         val order = differ.currentList[position]
         holder.bind(order)
+        holder.itemView.setOnClickListener {
+            onClick?.invoke(order)
+        }
     }
 
     var onClick : ((Order) -> Unit)? = null
