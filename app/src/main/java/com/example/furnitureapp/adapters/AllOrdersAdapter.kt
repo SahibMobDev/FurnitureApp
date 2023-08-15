@@ -17,7 +17,6 @@ import com.example.furnitureapp.databinding.OrderItemBinding
 import com.example.furnitureapp.fragments.settings.AllOrdersFragmentDirections
 
 class AllOrdersAdapter : Adapter<AllOrdersAdapter.OrdersViewHolder>() {
-private val navController by lazy { Navigation }
 
    inner class OrdersViewHolder(private val binding: OrderItemBinding) : ViewHolder(binding.root) {
        fun bind(order: Order) {
