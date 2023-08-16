@@ -53,8 +53,7 @@ class ProfileFragment : Fragment() {
         }
 
         binding.linearBilling.setOnClickListener {
-           // findNavController().navigate(R.id.action_profileFragment_to_billingFragment)
-            val action = ProfileFragmentDirections.actionProfileFragmentToBillingFragment(0f, emptyArray())
+            val action = ProfileFragmentDirections.actionProfileFragmentToBillingFragment(0f, emptyArray(), false)
             findNavController().navigate(action)
         }
 
@@ -64,6 +63,7 @@ class ProfileFragment : Fragment() {
             startActivity(intent)
             requireActivity().finish()
         }
+
 
         binding.tvVersion.text = "Version ${BuildConfig.VERSION_CODE}"
 

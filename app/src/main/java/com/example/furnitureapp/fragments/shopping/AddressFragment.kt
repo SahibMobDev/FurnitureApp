@@ -11,6 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.furnitureapp.data.Address
 import com.example.furnitureapp.databinding.FragmentAddressBinding
 import com.example.furnitureapp.util.Resource
@@ -24,6 +25,7 @@ class AddressFragment: Fragment() {
 
     private lateinit var binding: FragmentAddressBinding
     private val viewModel by viewModels<AddressViewModel>()
+    val args by navArgs<AddressFragmentArgs>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +43,21 @@ class AddressFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val address = args.address
+        if (address == null) {
+            binding.buttonDelelte.visibility = View.GONE
+
+        } else {
+            binding.apply {
+                edAddressTitle.setText(address.addressTitle)
+                edFullName.setText(address.fullName)
+                edState.setText(address.street)
+                edPhone.setText(address.phone)
+                edCity.setText(address.city)
+                edState.setText(address.state)
+            }
+        }
 
         binding.apply {
             buttonSave.setOnClickListener {
@@ -83,6 +100,10 @@ class AddressFragment: Fragment() {
                     Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
                 }
             }
+        }
+
+        binding.imageAddressClose.setOnClickListener {
+            findNavController().navigateUp()
         }
     }
 
